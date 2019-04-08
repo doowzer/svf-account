@@ -9,6 +9,8 @@ svfApp.factory('SvfApi', function ($http) {
                 data: data 
             }).then(function (response) {
                 return response.data;
+            }, function (error) {
+                console.log(error);
             });
         }
     }
@@ -17,7 +19,7 @@ svfApp.factory('SvfApi', function ($http) {
 svfApp.controller('svfAppController', function ($scope, SvfApi) {
     const PAGE_SIZE = 20;
     
-    var currentPage = 20;
+    var currentPage = PAGE_SIZE;
     var allResellers = [];
     var tmpResellers = [];
 
