@@ -53,11 +53,17 @@ svfApp.controller('svfAppController', function ($scope, SvfApi) {
         var tmpPage = currentPage + pageSize;
         currentPage = tmpPage;
         
+        tmpResellers = JSON.parse(JSON.stringify(allResellers)); // Deep copy (not by reference)
+        
         if (tmpPage == PAGE_SIZE) {
-            tmpPage = 0;            
+            tmpPage = 0;
+            currentPage = PAGE_SIZE;
+        } else if (tmpPage <= 0 || tmpResellers.length < PAGE_SIZE || currentPage > tmpResellers.length) {
+            tmpPage = 0;
+            currentPage = PAGE_SIZE
+            return;
         }
         
-        tmpResellers = JSON.parse(JSON.stringify(allResellers)); // Deep copy (not by reference)
         $scope.resellers = tmpResellers.splice(tmpPage, PAGE_SIZE);
     };
     
